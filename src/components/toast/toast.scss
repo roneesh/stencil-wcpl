@@ -1,0 +1,43 @@
+span { display: none; }
+.hydrated span { display: initial; }
+
+.toast {
+  background-color: #001e60;
+  border-radius: 8px;
+  bottom: 30px;
+  color: #ffffff;
+  display: flex;
+  max-width: 90vw;
+  opacity: 0;
+  padding: 15px;
+  position: fixed;
+  right: 50%;
+  transform: translate(50%, remify(25));
+  transition:
+      visibility 0s .3s,
+      transform .3s cubic-bezier(0,.9,0,.96),
+      opacity .3s cubic-bezier(0,.9,0,.96);
+  visibility: hidden;
+  width: remify(630);
+  z-index: 10;
+}
+
+.is-active.toast {
+  opacity: 1;
+  transform: translate(50%, 0);
+  transition:
+      visibility 0s,
+      transform .5s cubic-bezier(0,.77,.34,.91),
+      opacity .25s cubic-bezier(0,.77,.34,.91);
+  visibility: visible;
+}
+
+.toast__figure {
+  flex: 0 0 auto;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.toast__figure:empty {
+  display: none;
+}

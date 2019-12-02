@@ -1,0 +1,184 @@
+$red-1: #cf102d;
+$white: #ffffff;
+$color-error: $red-1;
+$cool-gray-5: #6b7789;
+$color-brand: #0033a0;
+$input-border-radius: 8;
+$breakpoint-medium: 768 !default;
+$root-font-size: 16 !default;
+
+@function remify($values) {
+  $rems: ();
+
+  @each $value in $values {
+    @if $value == 0 or $value == auto {
+      $rems: append($rems, $value);
+    } @else {
+      $rems: append(
+        $rems,
+        ($value / $root-font-size) + rem
+      );
+    }
+  }
+
+  @return $rems;
+}
+
+@function emify($values) {
+  $ems: ();
+
+  @each $value in $values {
+    @if $value == 0 or $value == auto {
+      $ems: append($ems, $value);
+    } @else {
+      $ems: append(
+        $ems,
+        ($value / $root-font-size) + em
+      );
+    }
+  }
+
+  @return $ems;
+}
+
+@mixin input-error {
+  border: remify(2) solid $color-error;
+}
+
+.drawer {
+  background-color: $white;
+  border-color: $cool-gray-5;
+  border-style: solid;
+  border-width: remify(1);
+  border-radius: remify(8);
+  overflow: hidden;
+}
+
+// removes border when the drawer must be the full-width of the viewport.
+.drawer.is-flush {
+  border-width: remify(1 0 1 0);
+  margin-top: remify(-1);
+}
+
+.drawer--border-top .drawer {
+  border: 0;
+  border-top: remify(1) solid $cool-gray-5;
+}
+
+
+// Trigger panel
+.drawer__trigger {
+  display: block;
+  color: $color-brand;
+  background-color: $white;
+  font-size: remify(14);
+  font-weight: bold;
+  line-height: 1;
+  padding: remify(0);
+  position: relative;
+  text-align: left;
+  transition: border 250ms ease;
+  width: 100%;
+}
+
+.drawer__trigger__icon {
+  align-items: center;
+  border-radius: remify(0 $input-border-radius $input-border-radius 0);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  right: remify(18);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.drawer__trigger__icon svg {
+  fill: $color-brand;
+  height: remify(20);
+  transition: fill 250ms ease,
+              transform 250ms ease;
+  width: remify(20);
+}
+
+.is-active .drawer__trigger__icon svg {
+  transform: rotate(-180deg);
+}
+
+.drawer__box {
+  height: 0;
+}
+.is-active .drawer__box {
+  height: auto;
+}
+
+.drawer__box__bd {
+  visibility: hidden;
+  transition: transform 250ms;
+  transform: scaleY(0);
+  padding: remify(0 18);
+}
+
+.drawer.is-active .drawer__box__bd {
+  visibility: visible;
+  transform: scaleY(1);
+  padding: remify(15 18);
+}
+
+// to have contents flush with mobile. Requires a wrapper to be used within the <div apl-drawer-bd>
+.drawer.is-flush .drawer__box__bd {
+  padding: remify(15 0);
+}
+
+.drawer__trigger__hd {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.drawer__trigger__hd__img {
+  display: none;
+  width: 20%;
+  padding: remify(8 0);
+  overflow: hidden;
+  position: relative;
+}
+
+.drawer__trigger__hd__img img {
+  transform: scale(1.35) translateY(-50%);
+  position: absolute;
+  top: 60%;
+  left: 0;
+}
+
+.drawer__trigger__hd__title {
+  padding: remify(18);
+  width: 80%;
+}
+
+.drawer__trigger__hd__title--solo {
+  width: 100%;
+}
+
+@media (min-width: emify(360)) {
+  .drawer__trigger__hd__img {
+    display: block;
+    background-color: #e4eff9;
+  }
+}
+
+@media (min-width: emify($breakpoint-medium)) {
+  .drawer.is-flush {
+    border-width: remify(1);
+  }
+
+  .drawer__trigger__hd__img img {
+    top: 50%;
+    transform: scale(1) translateY(-50%);
+  }
+}
+
+.drawer.has-error {
+  @include input-error();
+  border-width: remify(2);
+}

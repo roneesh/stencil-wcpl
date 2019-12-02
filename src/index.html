@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>WCPL</title>
+
+  <!-- This is Stencil's default way of importing builds, with one modern version for newer browsers, and an older version that activates via nomodule feature detection for legacy browsers. Since currently we support all browsers to IE11, we just want the legacy app to always load, which we do below by removing the nomodule boolean. -->
+
+  <script type="module" src="/build/stencil-wcpl.esm.js"></script>
+  <script nomodule src="/build/stencil-wcpl.js"></script>
+</head>
+<body>
+
+  <!-- 1. Demo component that comes with Stencil out of box. -->
+  <!-- <my-component first="Hello" middle="(Web Component)" last="World"></my-component> -->
+
+  <!-- 2. APL Toast component to test simple rendering and UI -->
+  <wcpl-toast id="toast1" open="true">
+    <span slot="toast-figure" class="for-slot">X</span>
+    <span slot="toast-bd" class="for-slot">1st toast message</span>
+  </wcpl-toast>
+
+  <!-- 3. APL Fader component to test animations/transitions -->
+
+  <!-- 4. APL Drawer component -->
+  <!-- <wcpl-drawer>
+    <span slot="drawer-hd">Drawer Header/Trigger</span>
+    <div slot="drawer-bd">
+      <p style="margin: 0;">Drawer body. Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+    </div>
+  </wcpl-drawer> -->
+
+  <script>
+    window.toast1 = document.querySelector('wcpl-toast');
+    window.myComponent1 = document.querySelector('my-component');
+    // window.fader1 = document.querySelector('wcpl-fader');
+    window.drawer1 = document.querySelector('wcpl-drawer');
+
+    document.addEventListener('drawerOpened', function() { console.log('drawerOpened!')});
+    document.addEventListener('drawerClosed', function() { console.log('drawerClosed!')});
+  </script>
+</body>
+</html>
